@@ -32,9 +32,9 @@ services:
     logging:
       driver: awslogs
       options:
-        awslogs-group: "higoods-docker-log"
-        awslogs-region: "ap-northeast-2"
-        awslogs-stream: "backend"
+        awslogs-group: higoods-docker-log
+        awslogs-region: ap-northeast-2
+        awslogs-stream: backend
 #  front:
 #      image: david0218/higoods-frontend:dev
 #      container_name: front
