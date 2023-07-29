@@ -1,0 +1,53 @@
+version: "3.7"
+
+services:
+  mariadb:
+    image: mariadb:10
+    container_name: HIGOODSMaria
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_DATABASE=higoodsDev
+      - MYSQL_ROOT_PASSWORD=admin
+      - TZ=Asia/Seoul
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - ./mariadata:/var/lib/maria
+  redis:
+    image: redis:alpine
+    ports:
+      - 6379:6379
+    environment:
+      - TZ=Asia/Seoul
+  backend:
+    image: higoods2023/higoods-api:0.0.1
+    container_name: backend
+    env_file:
+      - .env
+    network_mode: "host"
+    environment:
+      - TZ=Asia/Seoul
+#  front:
+#      image: david0218/higoods-frontend:dev
+#      container_name: front
+#      network_mode: "host"
+#      environment:
+#        - TZ=Asia/Seoul
+#  admin:
+#      image: david0218/higoods-admin:dev
+#      container_name: admin
+#      network_mode: "host"
+#      environment:
+#        - TZ=Asia/Seoul
+  nginx:
+      network_mode: "host"
+      depends_on:
+        - backend
+#        - front
+#        - admin
+      restart: always
+      image: higoods2023/higoods-nginx:1.0.0
+      environment:
+        - TZ=Asia/Seoul
