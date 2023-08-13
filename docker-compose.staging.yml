@@ -40,6 +40,6 @@ services:
 #        - front
 #        - admin
       restart: always
-      image: higoods2023/higoods-nginx:1.0.3
+      image: higoods2023/higoods-nginx:1.0.4
       environment:
         - TZ=Asia/Seoul
